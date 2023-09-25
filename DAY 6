@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+class A{
+   public:
+   int add(int a)
+   {
+      return(a+a);
+   }
+   int add(int a,int b)
+   {
+      return(a+b);
+   }
+};
+int main(){
+   A o1;
+   cout<<o1.add(10)<<endl;
+   cout<<o1.add(10,20);
+   return 0;
+}
