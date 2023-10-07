@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    int n,k,total_days=0,unchanged_days=0;
+	    cin>>n>>k;
+	    if(n%5==0) total_days=n/5;
+	    else total_days=n/5 + 1;
+	    if(k%5==0) unchanged_days=k/5;
+	    else      unchanged_days=k/5+1;
+	    cout<<(total_days-unchanged_days)<<endl;
+	}
+	return 0;
+}
