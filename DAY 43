@@ -1,0 +1,18 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int main() {
+	int t; cin>>t;
+	while(t--){
+	    int n,s, count=0;
+	    cin>>n;
+	    while(n>0){
+	        s = sqrt(n);
+	        count++;
+	        n = n - (s*s);
+	    }
+	    std::cout << count << std::endl;
+	}
+	return 0;
+}
