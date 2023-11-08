@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t; cin>>t;// test cases are taken as input
+	while(t--)
+	{
+	    float x,y;
+	    cin>>x>>y; // two input taken 
+	    float r = y-x; //we substract y-x and store it in r
+	    // and we used flaot because we used ceil function in program and the conditions are given below 
+	    if(r==0)
+	    cout<<"0"<<endl;
+	    else if(r<=8)
+	    cout<<"1"<<endl;
+	    else if(r>8)
+	    cout<<ceil(r/8)<<endl;
+	}
+	return 0;
+}
