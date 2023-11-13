@@ -1,0 +1,118 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
+const int N = 3e5 + 10;
+
+vector<ll> arr[N] , trans[N] , vis(N);
+stack<ll> s;
+
+void dfs1(ll x){
+    vis[x] = 1;
+    for(auto y : arr[x]){
+        if(!vis[y]){
+            dfs1(y);
+        }
+    }
+    s.push(x);
+}
+
+void dfs2(ll x , ll &c){
+    vis[x] = 1 , c++;
+    for(auto y : trans[x]){
+        if(!vis[y]){
+            dfs2(y , c);
+        }
+    }
+}
+
+int main(){
+    ll n , m;
+    cin>>n>>m;
+
+    while(m--){
+        ll u , v;
+        cin>>u>>v;
+
+        arr[u].push_back(v);
+        trans[v].push_back(u);
+    }
+
+    for(int i=1;i<=n;i++){
+        vis[i] = 0;
+    }
+
+    for(int i=1;i<=n;i++){
+        if(!vis[i]){
+            dfs1(i);
+        }
+    }
+
+    for(int i=1;i<=n;i++){
+        vis[i] = 0;
+    }
+
+    vector<ll> vec;
+
+    ll mx = -1;
+
+    while(s.size() > 0){
+        ll node = s.top();
+        s.pop();
+
+        if(!vis[node]){
+            ll c = 0;
+            dfs2(node , c);
+            vec.push_back(c);
+            mx = max(mx , c);
+        }
+    }
+
+    sort(vec.rbegin(),vec.rend());
+
+    ll sz = vec.size();
+
+    vector<ll> pre(sz) , p(sz);
+    pre[0] = vec[0] , p[0] = vec[0] * vec[0];
+
+    for(int i=1;i<sz;i++){
+        pre[i] = pre[i-1] + vec[i];
+        p[i] = p[i-1] + vec[i] * vec[i];
+    }
+
+    ll q;
+    cin>>q;
+
+    while(q--){
+        ll k;
+        cin>>k;
+
+        ll low = 0 , high = sz-1 , ans = -1;
+
+        while(low <= high){
+            ll mid = (low + high) / 2;
+
+            ll sum = (pre[mid] * pre[mid] - p[mid]) / 2;
+
+            if(sum <= k){
+                low = mid + 1;
+                ans = mid;
+            }
+            else{
+                high = mid - 1;
+            }
+        }
+
+        if(ans == sz-1){
+            cout << pre[ans] << endl;
+            continue;
+        }
+
+        ll s = (pre[ans] * pre[ans] - p[ans]) / 2;
+        ll res = pre[ans] + ((k - s) / pre[ans]);
+
+        cout << res << endl;
+    }
+return 0; 
+}
